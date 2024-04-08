@@ -1,68 +1,165 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+/* Variable colors */
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* ### Primary */
+  --tomato: hsl(4, 100%, 67%);
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* ### Neutral */
+  --dark-slate-grey: hsl(234, 29%, 20%);
+  --charcoal-grey: hsl(235, 18%, 26%);
+  --grey: hsl(231, 7%, 60%);
+  --white: hsl(0, 0%, 100%);
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+/* Style reset */
+*,
+::before,
+::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
-a:hover {
-  color: #535bf2;
+
+img {
+  max-width: 100%;
+  height: auto;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  font-family: "Roboto", sans-serif;
+  background-color: var(--charcoal-grey);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.main {
+  background-color: var(--white);
+  border-radius: 1.6em;
+  margin: 5em auto;
+  max-width: 55em;
+  padding: 1.3em;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+.success {
+  background-color: var(--white);
+  border-radius: 2em;
+  display: grid;
+  max-width: 27em;
+  padding: 2.5em 3.3em;
+  margin: 5em auto;
+}
+
+.success h2 {
+  color: var(--dark-slate-grey);
+  font-size: clamp(2em, 7vw, 2.5em);
+  line-height: 1;
+}
+
+.success p {
+  color: var(--charcoal-grey);
+  padding: 1.8em 0;
   font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.email {
+  color: var(--dark-slate-grey);
+  font-weight: bold;
+}
+
+.success .btn {
+  margin-top: 0.8em;
+}
+
+.success img {
+  width: 15%;
+  margin-bottom: 2em;
+}
+
+.form-wrapper {
+  grid-column: 1/2;
+  padding: 3.5em 2em;
+  padding-right: 0;
+}
+
+.img-container {
+  grid-column: 2/3;
+  background-image: url(/public/images/illustration-sign-up-desktop.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+.form-wrapper h2 {
+  color: var(--dark-slate-grey);
+  font-size: clamp(2em, 16vw, 3.5em);
+}
+
+.form-wrapper p {
+  color: var(--dark-slate-grey);
+  padding: 1.3em 0;
+}
+
+.form-wrapper ul {
+  color: var(--dark-slate-grey);
+  list-style-type: none;
+}
+
+.form-wrapper li {
+  padding-bottom: 1em;
+  display: flex;
+  align-items: flex-start;
+}
+
+.form-wrapper img {
+  margin-right: 1em;
+}
+
+label {
+  /* display: block; */
+  color: var(--dark-slate-grey);
+  font-weight: 800;
+  font-size: 0.8em;
+}
+form > div {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  align-items: center;
+  margin: 1em 0 0.5em 0;
+}
+
+.error {
+  font-size: 0.8em;
+  font-weight: 500;
+  color: red;
+}
+
+input {
+  display: block;
+  padding: 1.3em;
+  width: 100%;
+  border-radius: 0.4em;
+  border: 2px solid var(--grey);
+}
+
+input:focus {
+  outline: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.btn {
+  background: var(--dark-slate-grey);
+  padding: 1.3em;
+  margin: 1em 0;
+  width: 100%;
+  color: var(--white);
+  border-radius: 0.4em;
+  font-weight: 600;
+  cursor: pointer;
+  border: 0;
+  transition-property: all;
+  transition-duration: 0.5s;
+}
+
+.btn:hover {
+  background: linear-gradient(#fb934a, #ff5b64);
 }
