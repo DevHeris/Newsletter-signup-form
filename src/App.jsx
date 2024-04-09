@@ -4,39 +4,45 @@ import { useState } from "react";
 function App() {
   const [email, setEmail] = useState("");
   const [isValidEmail, setIsValidEmail] = useState(true);
-  const [successDisplay, setSuccessDisplay] = useState(false);
+
+  const [showMain, setShowMain] = useState(true);
 
   function handleValidation(e) {
     e.preventDefault();
 
-    setIsValidEmail(email.includes("@") && email.includes(".") ? true : false);
+    const isValid = email.includes("@") && email.includes(".");
 
-    setSuccessDisplay(() => isValidEmail);
+    setIsValidEmail(isValid);
+
+    setShowMain(isValid ? false : true);
+  }
+
+  function dismissMessage() {
+    setEmail("");
+    setShowMain(true);
   }
 
   return (
     <>
-      {successDisplay ? (
-        <SuccessMessage email={email} />
-      ) : (
+      {showMain ? (
         <Main
           isValid={isValidEmail}
-          setSuccess={setSuccessDisplay}
           handleValidation={handleValidation}
           email={email}
           setEmail={setEmail}
         />
+      ) : (
+        <SuccessMessage email={email} dismissMessage={dismissMessage} />
       )}
     </>
   );
 }
 
-function Main({ isValid, handleValidation, email, setSuccess, setEmail }) {
+function Main({ isValid, handleValidation, email, setEmail }) {
   return (
     <div className="main">
       <Form
         isValid={isValid}
-        setSuccess={setSuccess}
         handleValidation={handleValidation}
         email={email}
         setEmail={setEmail}
@@ -46,7 +52,7 @@ function Main({ isValid, handleValidation, email, setSuccess, setEmail }) {
   );
 }
 
-function SuccessMessage({ email }) {
+function SuccessMessage({ email, dismissMessage }) {
   return (
     <div className="success">
       <div>
@@ -58,7 +64,9 @@ function SuccessMessage({ email }) {
         <span className="email"> {email}</span>. Please open it and click the
         button inside to confirm your subscription.
       </p>
-      <button className="btn">Dismiss message</button>
+      <button className="btn" onClick={dismissMessage}>
+        Dismiss message
+      </button>
     </div>
   );
 }
