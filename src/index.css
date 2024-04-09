@@ -139,11 +139,20 @@ input {
   padding: 1.3em;
   width: 100%;
   border-radius: 0.4em;
-  border: 2px solid var(--grey);
+  outline: 2px solid rgba(0, 0, 0, 0.1);
+  border: 0;
 }
 
 input:focus {
-  outline: 1px solid rgba(0, 0, 0, 0.1);
+  /* outline: 2px solid var(--grey); */
+  border: 0;
+}
+
+.input-err {
+  outline: 2px solid #fec0bb;
+  border: 0;
+  background-color: #ffe8e6;
+  color: red;
 }
 
 .btn {

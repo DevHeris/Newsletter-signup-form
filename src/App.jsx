@@ -1,22 +1,52 @@
+/* eslint-disable react/prop-types */
+import { useState } from "react";
+
 function App() {
+  const [email, setEmail] = useState("");
+  const [isValidEmail, setIsValidEmail] = useState(true);
+  const [successDisplay, setSuccessDisplay] = useState(false);
+
+  function handleValidation(e) {
+    e.preventDefault();
+
+    setIsValidEmail(email.includes("@") && email.includes(".") ? true : false);
+
+    setSuccessDisplay(() => isValidEmail);
+  }
+
   return (
     <>
-      <Main />
-      <SuccessMessage />
+      {successDisplay ? (
+        <SuccessMessage email={email} />
+      ) : (
+        <Main
+          isValid={isValidEmail}
+          setSuccess={setSuccessDisplay}
+          handleValidation={handleValidation}
+          email={email}
+          setEmail={setEmail}
+        />
+      )}
     </>
   );
 }
 
-function Main() {
+function Main({ isValid, handleValidation, email, setSuccess, setEmail }) {
   return (
     <div className="main">
-      <Form />
+      <Form
+        isValid={isValid}
+        setSuccess={setSuccess}
+        handleValidation={handleValidation}
+        email={email}
+        setEmail={setEmail}
+      />
       <section className="img-container"></section>
     </div>
   );
 }
 
-function SuccessMessage() {
+function SuccessMessage({ email }) {
   return (
     <div className="success">
       <div>
@@ -24,16 +54,16 @@ function SuccessMessage() {
       </div>
       <h2>Thanks for subscribing!</h2>
       <p>
-        A confirmation email has been sent to{" "}
-        <span className="email">ash@loremcompany.com</span>. Please open it and
-        click the button inside to confirm your subscription.
+        A confirmation email has been sent to
+        <span className="email"> {email}</span>. Please open it and click the
+        button inside to confirm your subscription.
       </p>
       <button className="btn">Dismiss message</button>
     </div>
   );
 }
 
-function Form() {
+function Form({ isValid, handleValidation, email, setEmail }) {
   return (
     <section className="form-wrapper">
       <h2>Stay Updated!</h2>
@@ -53,12 +83,18 @@ function Form() {
         </li>
       </ul>
 
-      <form>
+      <form onSubmit={handleValidation}>
         <div>
           <label htmlFor="email">Email address</label>
-          <span className="error">Valid email required</span>
+          {!isValid && <span className="error">Valid email required</span>}
         </div>
-        <input type="text" placeholder="email@company.com" />
+        <input
+          className={isValid ? "" : "input-err"}
+          type="text"
+          placeholder="email@company.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
         <button className="btn">Subscribe to monthly newsletter</button>
       </form>
     </section>
